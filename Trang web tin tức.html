@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Tin Tức</title>
+    <style>
+        body {
+            font-family: "Times New Roman", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        nav {
+            background: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .news-section {
+            display: none;
+        }
+        .news-section.active {
+            display: block;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .messages {
+            margin-top: 20px;
+        }
+        .message-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fafafa;
+            margin-bottom: 10px;
+        }
+        .reply-form {
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .reply-form input, .reply-form textarea {
+            width: calc(100% - 10px);
+            padding: 5px;
+            margin-top: 5px;
+        }
+        .reply-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .logout-btn {
+            display: none;
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color:#b71c1c;
+        }
+        .logout-btn:hover {
+            background-color: #b71c1c;
+        }
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color:#007bff;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Trang Tin Tức Mới Nhất
+    </header>
+    <nav>
+        <a href="#" onclick="event.preventDefault(); showSection('home')">Trang chủ</a>
+        <a href="#" onclick="event.preventDefault(); showSection('ehw')">EHW</a>
+        <a href="#" onclick="event.preventDefault(); showSection('evowars')">Evowars.io</a>
+        <a href="#" onclick="event.preventDefault(); showSection('lienquan')">Liên quân</a>
+        <a href="#" onclick="event.preventDefault(); showSection('gamekhac')">Các game khác</a>
+        <a href="#" onclick="event.preventDefault(); showSection('lienhe')">Liên hệ</a>
+        <a href="#" onclick="event.preventDefault(); showSection('dev')">Bộ phận phát triển</a>
+    </nav>
+    <div class="container">
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+        <div id="home" class="news-section active">
+            <h2>Trang chủ</h2>
+            <p contenteditable="false" class="editable">Chào mừng bạn đến với trang tin tức!</p>
+            <button class="edit-btn" onclick="enableEdit('home')">Chỉnh sửa</button>
+            <button class="save-btn" onclick="saveContent('home')">Lưu</button>
+        </div>
+        <div id="ehw" class="news-section">
+            <h2>EHW</h2>
+            <p contenteditable="false" class="editable">Các tài khoản:</p>
+            <p contenteditable="false" class="editable">NDragon: aivemichoc</p>
+            <p contenteditable="false" class="editable">NDragon2: 3072013</p>
+            <p contenteditable="false" class="editable">NDragon3: 777777</p>
+            <button class="edit-btn" onclick="enableEdit('ehw')">Chỉnh sửa</button>
+            <button class="save-btn" onclick="saveContent('ehw')">Lưu</button>
+        </div>
+        <div id="evowars" class="news-section">
+            <h2>Evowars.io</h2>
+            <p contenteditable="false" class="editable">Các cập nhật mới về Evowars.io...</p>
+            <button class="edit-btn" onclick="enableEdit('evowars')">Chỉnh sửa</button>
+            <button class="save-btn" onclick="saveContent('evowars')">Lưu</button>
+        </div>
+        <div id="lienquan" class="news-section">
+            <h2>Liên quân</h2>
+            <p contenteditable="false" class="editable">Các giải đấu và tin tức về Liên quân...</p>
+            <button class="edit-btn" onclick="enableEdit('lienquan')">Chỉnh sửa</button>
+            <button class="save-btn" onclick="saveContent('lienquan')">Lưu</button>
+        </div>
+        <div id="gamekhac" class="news-section">
+            <h2>Các game khác</h2>
+            <p contenteditable="false" class="editable">Thông tin về các game khác...</p>
+            <button class="edit-btn" onclick="enableEdit('gamekhac')">Chỉnh sửa</button>
+            <button class="save-btn" onclick="saveContent('gamekhac')">Lưu</button>
+        </div>
+        <div id="lienhe" class="news-section">
+            <h2>Liên hệ</h2>
+            <form class="contact-form" onsubmit="sendMessage(event)">
+                <input type="text" id="name" placeholder="Họ và tên" required autocomplete="name">
+<textarea id="message" placeholder="Nội dung tin nhắn" rows="4" required autocomplete="off"></textarea>
+                <button type="submit">Gửi tin nhắn</button>
+            </form>
+            <p id="confirmation" style="color: green; display: none;">Tin nhắn của bạn đã được gửi!</p>
+            <div class="messages" id="messages"></div>
+        </div>
+        <div id="dev" class="news-section">
+            <h2>Bộ phận phát triển</h2>
+            <form id="dev-login" onsubmit="checkLogin(event)">
+                <input type="email" id="dev-email" placeholder="Email" required>
+                <input type="password" id="dev-password" placeholder="Mật khẩu" required>
+                <button type="submit">Đăng nhập</button>
+            </form>
+            <p id="error-msg" style="color: red; display: none;">Sai email hoặc mật khẩu!</p>
+        </div>
+    </div>
+    <footer>
+        &copy; 2025 TIG Group. Phát triển bởi Đậu Nhật Minh.
+    </footer>
+    <script>
+        function showSection(sectionId) {
+    // Ẩn tất cả các phần trước
+    document.querySelectorAll('.news-section').forEach(section => section.classList.remove('active'));
+    // Kiểm tra nếu người dùng đã đăng nhập trước khi hiển thị phần EHW
+    if (sectionId === 'ehw' && localStorage.getItem('loggedIn') !== 'true') {
+        alert("Bạn cần đăng nhập để xem phần này!");
+        return;
+    }
+    // Hiển thị phần được chọn
+    document.getElementById(sectionId).classList.add('active');
+}
+function sendMessage(event) {
+    event.preventDefault();
+    let name = document.getElementById('name').value.trim();
+    let message = document.getElementById('message').value.trim();
+    if (!name || !message) return;
+    // Lấy danh sách tin nhắn đã lưu (nếu có)
+    let messages = JSON.parse(localStorage.getItem('messages')) || [];
+    messages.push({ name, message });
+    // Lưu danh sách tin nhắn mới vào localStorage
+    localStorage.setItem('messages', JSON.stringify(messages));
+    // Xóa nội dung nhập sau khi gửi
+    document.getElementById('name').value = '';
+    document.getElementById('message').value = '';
+    // Hiển thị lại tin nhắn
+    displayMessages();
+}
+function deleteMessage(index) {
+    let messages = JSON.parse(localStorage.getItem('messages')) || [];
+    messages.splice(index, 1); // Xóa tin nhắn theo index
+    localStorage.setItem('messages', JSON.stringify(messages));
+    displayMessages(); // Cập nhật hiển thị
+}
+function displayMessages() {
+    let messages = JSON.parse(localStorage.getItem('messages')) || [];
+    let messagesContainer = document.getElementById('messages');
+    messagesContainer.innerHTML = ''; // Xóa nội dung cũ trước khi hiển thị lại
+    messages.forEach((msg, index) => {
+        let messageItem = document.createElement('div');
+        messageItem.classList.add('message-item');
+        messageItem.innerHTML = `
+            <strong>${msg.name}</strong>: ${msg.message}
+            <button class='delete-button' onclick='deleteMessage(${index})'>Xóa</button>
+        `;
+        messagesContainer.appendChild(messageItem);
+    });
+}
+        // Gọi hàm hiển thị tin nhắn khi tải lại trang
+        function checkLogin(event) {
+    event.preventDefault();
+    let email = document.getElementById('dev-email').value;
+    let password = document.getElementById('dev-password').value;
+    if (email === "tepnhatminh@gmail.com" && password === "TIGGroup3007") {
+        // Hiển thị các nút chỉnh sửa và nút đăng xuất
+        document.querySelectorAll('.edit-btn, .save-btn').forEach(btn => btn.style.display = 'inline-block');
+        document.querySelector('.logout-btn').style.display = 'inline-block';
+        // Đánh dấu người dùng đã đăng nhập
+        localStorage.setItem('loggedIn', 'true');
+        // Hiển thị phần EHW khi đăng nhập thành công
+        showSection('home');  // Hiển thị trang chủ trước, bạn có thể thay đổi trang muốn hiển thị
+        // Ẩn thông báo lỗi
+        document.getElementById('error-msg').style.display = "none";
+    } else {
+        document.getElementById('error-msg').style.display = "block";
+    }
+}
+function logout() {
+    localStorage.removeItem('loggedIn');
+    document.querySelectorAll('.edit-btn, .save-btn').forEach(btn => btn.style.display = 'none');
+    document.querySelector('.logout-btn').style.display = 'none';
+    // Ẩn tất cả các phần tin tức
+    document.querySelectorAll('.news-section').forEach(section => section.classList.remove('active'));
+    // Quay lại trang chủ
+    showSection('home');
+}
+        function enableEdit(sectionId) {
+            let content = document.querySelector(`#${sectionId} .editable`);
+            content.contentEditable = "true";
+            content.style.border = "1px solid #000";
+        }
+        function saveContent(sectionId) {
+            let content = document.querySelector(`#${sectionId} .editable`).innerHTML;
+            localStorage.setItem(sectionId, content);
+            document.querySelector(`#${sectionId} .editable`).contentEditable = "false";
+            document.querySelector(`#${sectionId} .editable`).style.border = "none";
+        }
+        function loadContent() {
+    // Tự động đăng xuất khi tải trang
+    logout();
+    // Tải nội dung đã lưu từ localStorage cho các phần
+    document.querySelectorAll('.news-section .editable').forEach(content => {
+        let sectionId = content.parentElement.id;
+        let savedContent = localStorage.getItem(sectionId);
+        if (savedContent) content.innerHTML = savedContent;
+    });
+    // Nếu người dùng đã đăng nhập, hiển thị phần EHW và các nút chỉnh sửa, đăng xuất
+    if (localStorage.getItem('loggedIn') === 'true') {
+        document.querySelectorAll('.edit-btn, .save-btn').forEach(btn => btn.style.display = 'inline-block');
+        document.querySelector('.logout-btn').style.display = 'inline-block';
+        // Đảm bảo EHW được hiển thị khi đăng nhập
+        showSection('home');  // Hiển thị trang chủ đầu tiên
+    }
+}
+        window.onload = loadContent;
+        displayMessages();
+    </script>
+</body>
+</html>
+
